@@ -1,0 +1,116 @@
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 72px 0 32px;
+  background: var(--surface);
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer__brand p {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 280px;
+  margin-top: 18px;
+}
+
+.footer__col h4,
+.footer__newsletter h4 {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-family: var(--sans);
+}
+
+.footer__col a {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  margin-bottom: 13px;
+  transition: color .2s;
+}
+.footer__col a:hover {
+  color: var(--blue-2);
+}
+
+.footer__newsletter p {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.footer__nl-form {
+  display: flex;
+  border: 1px solid var(--line);
+}
+.footer__nl-form input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 13px 14px;
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: var(--sans);
+}
+.footer__nl-form input:focus {
+  outline: none;
+}
+.footer__nl-form input::placeholder {
+  color: var(--text-dim);
+}
+.footer__nl-form button {
+  background: var(--blue);
+  border: none;
+  color: #fff;
+  padding: 0 18px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--sans);
+  white-space: nowrap;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.footer__legal {
+  display: flex;
+  gap: 24px;
+}
+.footer__legal a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+.footer__legal a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+}

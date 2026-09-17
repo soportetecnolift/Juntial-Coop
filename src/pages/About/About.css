@@ -1,0 +1,110 @@
+.about-hero {
+  padding: 80px 48px 56px;
+  max-width: 780px;
+}
+.about-hero h1 {
+  font-size: 44px;
+  line-height: 1.15;
+  margin: 20px 0 24px;
+}
+.about-hero__lead {
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.about-body {
+  padding: 0 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 48px;
+  align-items: start;
+}
+.about-body__text p {
+  font-size: 15.5px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.about-grid {
+  padding: 0 48px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.about-grid__card {
+  background: var(--surface-2);
+  padding: 36px;
+}
+.about-grid__card h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+.about-grid__card p {
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+.about-team {
+  padding: 0 48px 100px;
+}
+.about-team h2 {
+  font-size: 30px;
+  margin: 16px 0 40px;
+}
+.about-team__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.about-steps {
+  padding: 80px 48px 100px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.about-steps__head { max-width: 640px; margin-bottom: 56px; }
+.about-steps__head h2 { font-size: 32px; line-height: 1.25; margin-bottom: 18px; }
+.about-steps__head p { font-size: 15.5px; line-height: 1.75; }
+
+.about-steps__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  width: 100%;
+  max-width: 900px;
+  text-align: left;
+  margin-bottom: 48px;
+}
+.about-step__marker {
+  font-family: var(--heading);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--blue-2);
+  margin-bottom: 16px;
+}
+.about-step h3 { font-size: 17px; margin-bottom: 10px; }
+.about-step p { font-size: 13.5px; line-height: 1.65; }
+
+.about-steps__cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .about-hero, .about-body, .about-grid, .about-team, .about-steps {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .about-hero h1 { font-size: 32px; }
+  .about-body, .about-grid { grid-template-columns: 1fr; }
+  .about-team__grid { grid-template-columns: 1fr 1fr; }
+  .about-steps__list { grid-template-columns: 1fr; }
+}

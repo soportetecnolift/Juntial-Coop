@@ -1,10 +1,5 @@
-const DesarrolloAMedida = () => {
-  return (
-    <div>
-      <h1>Desarrollo a Medida</h1>
-      <p>Bienvenido a la página de Desarrollo a Medida</p>
-    </div>
-  )
-}
+import ServiceLinePage from '../../components/ServiceLinePage/ServiceLinePage'
 
-export default DesarrolloAMedida
+export default function DesarrolloAMedida() {
+  return <ServiceLinePage lineKey="dev" />
+}

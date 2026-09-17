@@ -1,10 +1,5 @@
-const AutomatizacionEIa = () => {
-  return (
-    <div>
-      <h1>Automatización de EIA</h1>
-      <p>Bienvenido a la página de Automatización de EIA</p>
-    </div>
-  )
-}
+import ServiceLinePage from '../../components/ServiceLinePage/ServiceLinePage'
 
-export default AutomatizacionEIa
+export default function AutomatizacionEIa() {
+  return <ServiceLinePage lineKey="automation" />
+}

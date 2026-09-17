@@ -1,0 +1,124 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: clip;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 48px;
+  flex-wrap: nowrap;
+}
+
+.navbar__logo {
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: nowrap;
+}
+
+.navbar__link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color .2s;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+.navbar__link:hover {
+  color: var(--text);
+}
+.navbar__link.is-active {
+  color: var(--blue-2);
+  border-bottom-color: var(--blue);
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.navbar__cta {
+  background: var(--blue);
+  color: #fff;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  transition: background .2s;
+  white-space: nowrap;
+}
+.navbar__cta:hover {
+  background: var(--blue-2);
+}
+
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+  align-items: center;
+}
+.navbar__burger span {
+  width: 16px;
+  height: 1.5px;
+  background: var(--text);
+  transition: transform .2s, opacity .2s;
+}
+.navbar__burger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.navbar__burger.is-open span:nth-child(2) { opacity: 0; }
+.navbar__burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+@media (max-width: 1280px) {
+  .navbar__inner {
+    padding: 16px 24px;
+    flex-wrap: wrap;
+  }
+  .navbar__links {
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .navbar__links.is-open {
+    max-height: 400px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    margin-top: 12px;
+  }
+  .navbar__link {
+    padding: 10px 0;
+    width: 100%;
+  }
+  .navbar__cta {
+    display: none;
+  }
+  .navbar__burger {
+    display: flex;
+  }
+}
