@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../../context/LanguageContext'
 import Placeholder from '../../components/Placeholder/Placeholder'
+import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
+import '../../components/TypewriterHeading/TypewriterHeading.css'
 import './About.css'
 
 export default function About() {
@@ -11,7 +13,7 @@ export default function About() {
     <div className="page about-page">
       <section className="about-hero container">
         <div className="eyebrow">{t('about.eyebrow')}</div>
-        <h1>{t('about.title')}</h1>
+        <TypewriterHeading text={t('about.title')} key={t('about.title')} />
         <p className="about-hero__lead">{t('about.lead')}</p>
       </section>
 

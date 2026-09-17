@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../../context/LanguageContext'
 import Placeholder from '../Placeholder/Placeholder'
+import TypewriterHeading from '../TypewriterHeading/TypewriterHeading'
+import '../TypewriterHeading/TypewriterHeading.css'
 import './ServiceLinePage.css'
 
 /**
@@ -16,7 +18,7 @@ export default function ServiceLinePage({ lineKey }) {
     <div className="page service-line">
       <section className="sl-hero container">
         <div className="eyebrow">{line.eyebrow}</div>
-        <h1>{line.title}</h1>
+        <TypewriterHeading text={line.title} key={lineKey + line.title} />
         <p className="sl-hero__intro">{line.intro}</p>
       </section>
 

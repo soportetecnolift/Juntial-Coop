@@ -2,6 +2,8 @@ import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../../context/LanguageContext'
 import Placeholder from '../../components/Placeholder/Placeholder'
+import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
+import '../../components/TypewriterHeading/TypewriterHeading.css'
 import './CasosReales.css'
 
 export default function CasosReales() {
@@ -30,7 +32,7 @@ export default function CasosReales() {
     <div className="page cases-page">
       <section className="cases-hero container">
         <div className="eyebrow">{hero.eyebrow}</div>
-        <h1>{hero.title}</h1>
+        <TypewriterHeading text={hero.title} key={hero.title} />
         <p>{hero.lead}</p>
       </section>
 

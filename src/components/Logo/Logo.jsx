@@ -10,20 +10,21 @@ export function LogoMark({ size = 30 }) {
   )
 }
 
-export function LogoFull({ markSize = 28, textSize = 20 }) {
+export function LogoFull({ markSize = 28, textSize = 20, gap = 12 }) {
   return (
     <span style={{
       display: 'inline-flex',
       alignItems: 'center',
-      gap: 12,
+      gap,
       fontFamily: 'var(--heading)',
       fontWeight: 700,
       fontSize: textSize,
       letterSpacing: '-0.02em',
       color: 'var(--text)',
+      lineHeight: 1,
     }}>
       <LogoMark size={markSize} />
-      JUNT<span style={{ color: 'var(--blue)' }}>IAL</span>
+      <span>{'JUNT'}<span style={{ color: 'var(--blue)' }}>IA</span>{'L'}</span>
     </span>
   )
 }

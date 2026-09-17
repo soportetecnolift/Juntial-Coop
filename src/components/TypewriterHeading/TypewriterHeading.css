@@ -1,0 +1,29 @@
+.typewriter-caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 4px;
+  background: var(--blue-2);
+  vertical-align: -0.1em;
+  animation: typewriter-blink 0.9s step-end infinite;
+}
+
+.typewriter-caret--done {
+  animation: typewriter-blink 0.9s step-end infinite, typewriter-fade 0.6s ease 1.4s forwards;
+}
+
+@keyframes typewriter-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes typewriter-fade {
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-caret {
+    animation: none;
+    opacity: 0;
+  }
+}

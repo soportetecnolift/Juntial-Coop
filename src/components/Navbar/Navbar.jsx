@@ -21,9 +21,9 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="navbar__inner container">
+      <div className="navbar__inner">
         <Link to="/" className="navbar__logo" onClick={() => setOpen(false)}>
-          <LogoFull />
+          <LogoFull markSize={38} textSize={23} gap={10} />
         </Link>
 
         <nav className={`navbar__links${open ? ' is-open' : ''}`}>

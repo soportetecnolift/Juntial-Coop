@@ -1,10 +1,24 @@
 import { Link } from 'react-router-dom'
+import { useRef } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import Placeholder from '../../components/Placeholder/Placeholder'
+import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
+import '../../components/TypewriterHeading/TypewriterHeading.css'
+import Reveal from '../../components/Reveal/Reveal'
+import '../../components/Reveal/Reveal.css'
 import './Home.css'
 
 export default function Home() {
   const { t } = useLanguage()
+  const ctaRef = useRef(null)
+
+  function handleCtaMouseMove(e) {
+    const node = ctaRef.current
+    if (!node) return
+    const rect = node.getBoundingClientRect()
+    node.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+    node.style.setProperty('--my', `${e.clientY - rect.top}px`)
+  }
 
   const lines = [
     { to: '/Custom-development', title: t('home.line1title'), desc: t('home.line1desc'), n: '01' },
@@ -26,9 +40,12 @@ export default function Home() {
       <section className="home-hero container">
         <div className="home-hero__copy">
           <div className="eyebrow"><span className="eyebrow__dot" /> {t('home.eyebrow')}</div>
-          <h1>
-            {t('home.h1a')} <span className="accent">{t('home.h1accent')}</span> {t('home.h1b')}
-          </h1>
+          <TypewriterHeading
+            before={t('home.h1a')}
+            accent={t('home.h1accent')}
+            after={t('home.h1b')}
+            key={t('home.h1a') + t('home.h1accent') + t('home.h1b')}
+          />
           <p className="home-hero__lead">{t('home.lead')}</p>
           <div className="home-hero__actions">
             <Link to="/about" className="btn-primary">{t('home.ctaPrimary')}</Link>
@@ -56,7 +73,7 @@ export default function Home() {
       </section>
 
       {/* ---------- QUÉ ES JUNTIAL ---------- */}
-      <section className="home-what container">
+      <Reveal as="section" className="home-what container">
         <div className="home-what__head">
           <div className="eyebrow">{t('home.whatEyebrow')}</div>
           <h2>{t('home.whatTitle')}</h2>
@@ -75,28 +92,30 @@ export default function Home() {
             <p>{t('home.whoBody')}</p>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* ---------- TRES LÍNEAS DE SERVICIO ---------- */}
-      <section className="home-lines container">
+      <Reveal as="section" className="home-lines container">
         <div className="home-lines__head">
           <div className="eyebrow">{t('home.linesEyebrow')}</div>
           <h2>{t('home.linesTitle')}</h2>
         </div>
         <div className="home-lines__grid">
-          {lines.map((line) => (
-            <Link to={line.to} key={line.n} className="line-card">
-              <span className="line-card__num">{line.n}</span>
-              <h3>{line.title}</h3>
-              <p>{line.desc}</p>
-              <span className="line-card__arrow">{t('common.readMore')} →</span>
-            </Link>
+          {lines.map((line, i) => (
+            <Reveal as="div" delay={i * 90} key={line.n}>
+              <Link to={line.to} className="line-card">
+                <span className="line-card__num">{line.n}</span>
+                <h3>{line.title}</h3>
+                <p>{line.desc}</p>
+                <span className="line-card__arrow">{t('common.readMore')} →</span>
+              </Link>
+            </Reveal>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ---------- PROCESO ---------- */}
-      <section className="home-process container">
+      <Reveal as="section" className="home-process container">
         <div className="home-process__head">
           <div>
             <div className="eyebrow">{t('home.processEyebrow')}</div>
@@ -112,10 +131,10 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ---------- CASOS DESTACADOS ---------- */}
-      <section className="home-cases container">
+      <Reveal as="section" className="home-cases container">
         <div className="home-cases__head">
           <div>
             <div className="eyebrow">{t('home.casesEyebrow')}</div>
@@ -125,7 +144,7 @@ export default function Home() {
         </div>
         <div className="home-cases__grid">
           {featuredCases.map((c, i) => (
-            <div className="case-card" key={i}>
+            <Reveal as="div" delay={i * 90} className="case-card" key={i}>
               <h3>{c.title}</h3>
               <ol className="case-card__flow">
                 {c.flow.slice(0, 3).map((step, j) => (
@@ -133,16 +152,16 @@ export default function Home() {
                 ))}
               </ol>
               <p className="case-card__closing">{c.closing}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
         <div className="home-cases__cta">
           <Link to="/Real-life-cases" className="btn-outline">{t('home.casesCta')} →</Link>
         </div>
-      </section>
+      </Reveal>
 
       {/* ---------- MEDIA / PROCESO ILUSTRATIVO ---------- */}
-      <section className="home-media container">
+      <Reveal as="section" className="home-media container">
         <div className="home-media__head">
           <div className="eyebrow">{t('home.mediaEyebrow')}</div>
           <h2>{t('home.mediaTitle')}</h2>
@@ -153,12 +172,13 @@ export default function Home() {
           <Placeholder type="photo" ratio="1/1" />
           <Placeholder type="process" ratio="1/1" />
         </div>
-      </section>
+      </Reveal>
 
       {/* ---------- CTA FINAL ---------- */}
-      <section className="container">
-        <div className="home-cta">
+      <Reveal as="section" className="container">
+        <div className="home-cta" ref={ctaRef} onMouseMove={handleCtaMouseMove}>
           <div className="home-cta__glow" />
+          <div className="home-cta__cursor-glow" />
           <div className="home-cta__main">
             <div className="eyebrow">{t('home.finalCtaEyebrow')}</div>
             <h2>{t('home.finalCtaTitle')}</h2>
@@ -183,7 +203,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
     </div>
   )
 }

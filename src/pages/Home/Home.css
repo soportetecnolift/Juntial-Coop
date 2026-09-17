@@ -1,5 +1,15 @@
 .accent { color: var(--blue-2); }
 
+.home {
+  position: relative;
+  background-image: radial-gradient(circle, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -8px -8px;
+}
+:root[data-theme='light'] .home {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px);
+}
+
 /* ===== HERO ===== */
 .home-hero {
   padding: 72px 48px 0;
@@ -23,6 +33,7 @@
   line-height: 1.06;
   margin-bottom: 26px;
   max-width: 640px;
+  min-height: calc(1.06em * 3);
 }
 
 .home-hero__lead {
@@ -76,6 +87,7 @@
   background: linear-gradient(160deg, var(--facet-1), var(--facet-2));
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   top: 0; left: 82px; opacity: .9;
+  animation: facet-float 7s ease-in-out infinite;
 }
 .f2 {
   width: 145px; height: 167px;
@@ -83,19 +95,39 @@
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   top: 106px; left: 118px;
   box-shadow: 0 0 70px rgba(46,92,255,0.4);
+  animation: facet-pulse 4.5s ease-in-out infinite;
 }
 .f3 { width: 80px; height: 80px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 50%; top: 163px; left: 150px; }
 .orbit-line { position: absolute; border: 1px solid var(--line); border-radius: 50%; }
-.o1 { width: 380px; height: 380px; top: 0; left: 0; }
-.o2 { width: 310px; height: 310px; top: 35px; left: 35px; }
-.node { position: absolute; width: 8px; height: 8px; background: var(--blue-2); border-radius: 50%; }
+.o1 { width: 380px; height: 380px; top: 0; left: 0; animation: orbit-spin 60s linear infinite; }
+.o2 { width: 310px; height: 310px; top: 35px; left: 35px; animation: orbit-spin 40s linear infinite reverse; }
+.node { position: absolute; width: 8px; height: 8px; background: var(--blue-2); border-radius: 50%; box-shadow: 0 0 12px 2px rgba(107,140,255,0.55); }
 .n1 { top: 0; left: 190px; }
 .n2 { top: 308px; left: 55px; }
 .n3 { top: 190px; left: 372px; }
 
+@keyframes facet-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes facet-pulse {
+  0%, 100% { box-shadow: 0 0 70px rgba(46,92,255,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 95px rgba(46,92,255,0.6); transform: scale(1.035); }
+}
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .f1, .f2, .o1, .o2 {
+    animation: none;
+  }
+}
+
 @media (max-width: 980px) {
   .home-hero { grid-template-columns: 1fr; padding-top: 40px; min-height: auto; }
-  .home-hero h1 { font-size: 42px; }
+  .home-hero h1 { font-size: 42px; min-height: calc(1.06em * 4); }
   .home-hero__visual { height: 320px; order: -1; }
   .facet-system { width: 280px; height: 280px; transform: scale(0.8); }
 }
@@ -145,10 +177,19 @@
   color: var(--text);
   display: flex;
   flex-direction: column;
-  transition: background .2s;
+  transition: background-color .25s, transform .25s, box-shadow .25s;
   min-height: 260px;
+  position: relative;
 }
-.line-card:hover { background: var(--surface-3); }
+.line-card:hover {
+  background: var(--surface-3);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.line-card:hover .line-card__arrow {
+  transform: translateX(4px);
+}
 .line-card__num {
   font-family: var(--heading);
   font-size: 14px;
@@ -162,6 +203,8 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--blue-2);
+  display: inline-block;
+  transition: transform .25s;
 }
 
 @media (max-width: 860px) {
@@ -261,6 +304,24 @@
   background: radial-gradient(circle, var(--blue-tint), transparent 70%);
   top: -200px; right: -200px;
   pointer-events: none;
+}
+.home-cta__cursor-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--blue) 24%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.home-cta:hover .home-cta__cursor-glow {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .home-cta__cursor-glow { display: none; }
 }
 .home-cta__main { position: relative; z-index: 1; }
 .home-cta__main h2 { font-size: 36px; line-height: 1.15; margin: 16px 0 20px; max-width: 520px; }

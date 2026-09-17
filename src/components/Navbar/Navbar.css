@@ -2,19 +2,28 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  padding: 20px 32px 0;
   overflow-x: clip;
+  pointer-events: none; /* deja pasar clics por el margen transparente alrededor de la píldora */
 }
 
 .navbar__inner {
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: 18px 48px;
+  gap: 28px;
+  padding: 14px 26px;
   flex-wrap: nowrap;
+  max-width: 1280px;
+  margin: 0 auto;
+  background: color-mix(in srgb, var(--surface-2) 92%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.35);
+  transition: box-shadow .25s ease, background-color .25s ease;
 }
 
 .navbar__logo {
@@ -24,48 +33,50 @@
 
 .navbar__links {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 30px;
   flex-wrap: nowrap;
 }
 
 .navbar__link {
   color: var(--text-dim);
   text-decoration: none;
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 500;
   white-space: nowrap;
   transition: color .2s;
-  padding: 6px 0;
+  padding: 4px 0;
   border-bottom: 2px solid transparent;
 }
 .navbar__link:hover {
   color: var(--text);
 }
 .navbar__link.is-active {
-  color: var(--blue-2);
-  border-bottom-color: var(--blue);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .navbar__actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex-shrink: 0;
 }
 
 .navbar__cta {
   background: var(--blue);
   color: #fff;
-  padding: 10px 22px;
-  font-size: 14px;
+  padding: 11px 26px;
+  font-size: 14.5px;
   font-weight: 600;
   text-decoration: none;
-  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
-  transition: background .2s;
+  border-radius: 999px;
+  transition: background-color .2s, transform .2s;
   white-space: nowrap;
 }
 .navbar__cta:hover {
   background: var(--blue-2);
+  transform: translateY(-1px);
 }
 
 .navbar__burger {
@@ -77,12 +88,13 @@
   height: 32px;
   background: none;
   border: 1px solid var(--line);
+  border-radius: 50%;
   cursor: pointer;
   padding: 0;
   align-items: center;
 }
 .navbar__burger span {
-  width: 16px;
+  width: 14px;
   height: 1.5px;
   background: var(--text);
   transition: transform .2s, opacity .2s;
@@ -91,15 +103,26 @@
 .navbar__burger.is-open span:nth-child(2) { opacity: 0; }
 .navbar__burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+/* Cuando el menú móvil está abierto, la píldora se convierte en un panel
+   con esquinas suaves (no totalmente redondeado) para poder acomodar la
+   lista de links debajo sin verse extraña. */
+.navbar__inner:has(.navbar__links.is-open) {
+  border-radius: 28px;
+}
+
 @media (max-width: 1280px) {
+  .navbar {
+    padding: 16px 20px 0;
+  }
   .navbar__inner {
-    padding: 16px 24px;
+    padding: 12px 20px;
     flex-wrap: wrap;
   }
   .navbar__links {
     order: 3;
     width: 100%;
     flex-direction: column;
+    align-items: flex-start;
     gap: 4px;
     max-height: 0;
     overflow: hidden;
