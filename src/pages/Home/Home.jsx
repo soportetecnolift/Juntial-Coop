@@ -6,6 +6,7 @@ import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHead
 import '../../components/TypewriterHeading/TypewriterHeading.css'
 import Reveal from '../../components/Reveal/Reveal'
 import '../../components/Reveal/Reveal.css'
+import HexSystem from '../../components/HexSystem/HexSystem'
 import './Home.css'
 
 export default function Home() {
@@ -59,16 +60,7 @@ export default function Home() {
         </div>
 
         <div className="home-hero__visual">
-          <div className="facet-system">
-            <div className="orbit-line o1" />
-            <div className="orbit-line o2" />
-            <div className="node n1" />
-            <div className="node n2" />
-            <div className="node n3" />
-            <div className="facet f1" />
-            <div className="facet f2" />
-            <div className="facet f3" />
-          </div>
+          <HexSystem />
         </div>
       </section>
 
