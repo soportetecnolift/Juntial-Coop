@@ -89,9 +89,9 @@ export const en = {
     casesLead: 'Examples of automations that combine several of our services to solve a specific problem, start to finish.',
     casesCta: 'See all use cases',
 
-    mediaEyebrow: 'How we make it happen',
-    mediaTitle: 'Every project, documented from start to finish',
-    mediaLead: 'Videos of the real process, screenshots of the systems we build and the step by step of each automation — ready for when we upload the material for each case.',
+    mediaEyebrow: 'Evidence',
+    mediaTitle: 'What we build, in plain sight',
+    mediaLead: 'Architectures, code and demos for each capability: from Zoho CRM Blueprints to AI agents with their own tools.',
 
     finalCtaEyebrow: "Let's start",
     finalCtaTitle: "Tell us which process is slowing you down and we'll tell you how to automate it",

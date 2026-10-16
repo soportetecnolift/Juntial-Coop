@@ -89,9 +89,9 @@ export const es = {
     casesLead: 'Ejemplos de automatizaciones que combinan varios de nuestros servicios para resolver un problema concreto, de principio a fin.',
     casesCta: 'Ver todos los casos de uso',
 
-    mediaEyebrow: 'Cómo lo hacemos posible',
-    mediaTitle: 'Cada proyecto, documentado de principio a fin',
-    mediaLead: 'Vídeos del proceso real, capturas de los sistemas construidos y el paso a paso de cada automatización — listos para cuando subamos el material de cada caso.',
+    mediaEyebrow: 'Evidencias',
+    mediaTitle: 'Lo que construimos, a la vista',
+    mediaLead: 'Arquitecturas, código y demos de cada capacidad: de los Blueprints de Zoho CRM a los agentes de IA con herramientas propias.',
 
     finalCtaEyebrow: 'Empecemos',
     finalCtaTitle: 'Cuéntanos qué proceso te está frenando y te decimos cómo automatizarlo',

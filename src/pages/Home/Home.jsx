@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
-import Placeholder from '../../components/Placeholder/Placeholder'
+import VideoPlayer from '../../components/VideoPlayer/VideoPlayer'
+import { SHOWCASE } from '../../data/showcase'
 import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
 import '../../components/TypewriterHeading/TypewriterHeading.css'
 import Reveal from '../../components/Reveal/Reveal'
@@ -34,6 +35,8 @@ export default function Home() {
   ]
 
   const featuredCases = t('cases.items').slice(0, 3)
+  const showcaseItems = t('showcase.items')
+  const mcpTitle = showcaseItems.find((it) => it.id === 'mcp').title
 
   return (
     <div className="page home">
@@ -160,9 +163,29 @@ export default function Home() {
           <p>{t('home.mediaLead')}</p>
         </div>
         <div className="home-media__grid">
-          <Placeholder type="video" ratio="16/9" className="home-media__main" />
-          <Placeholder type="photo" ratio="1/1" />
-          <Placeholder type="process" ratio="1/1" />
+          <VideoPlayer
+            ambient
+            sources={[
+              { src: '/media/demos/mcp.mp4', type: 'video/mp4' },
+              { src: '/media/demos/mcp.webm', type: 'video/webm' },
+            ]}
+            poster="/media/demos/mcp.jpg"
+            title={mcpTitle}
+          />
+          <ul className="home-media__list">
+            {SHOWCASE.map((s, i) => (
+              <li key={s.id}>
+                <Link to={`/Real-life-cases#${s.id}`}>
+                  <span className="home-media__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span>{showcaseItems.find((it) => it.id === s.id).title}</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="home-media__cta">
+          <Link to="/Real-life-cases#evidencias" className="btn-outline">{t('showcase.seeAll')} →</Link>
         </div>
       </Reveal>
 

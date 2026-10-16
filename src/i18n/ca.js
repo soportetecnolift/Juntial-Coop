@@ -89,9 +89,9 @@ export const ca = {
     casesLead: 'Exemples d\u2019automatitzacions que combinen diversos dels nostres serveis per resoldre un problema concret, de principi a fi.',
     casesCta: 'Veure tots els casos d\u2019ús',
 
-    mediaEyebrow: 'Com ho fem possible',
-    mediaTitle: 'Cada projecte, documentat de principi a fi',
-    mediaLead: 'Vídeos del procés real, captures dels sistemes construïts i el pas a pas de cada automatització — a punt per quan pugem el material de cada cas.',
+    mediaEyebrow: 'Evidències',
+    mediaTitle: 'El que construïm, a la vista',
+    mediaLead: 'Arquitectures, codi i demos de cada capacitat: dels Blueprints de Zoho CRM als agents d’IA amb eines pròpies.',
 
     finalCtaEyebrow: 'Comencem',
     finalCtaTitle: 'Explica\u2019ns quin procés et frena i et diem com automatitzar-lo',

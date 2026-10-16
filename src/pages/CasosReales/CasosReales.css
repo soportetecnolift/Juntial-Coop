@@ -131,3 +131,12 @@
   .cases-footer-note { margin-left: 24px; margin-right: 24px; }
   .cases-cta { padding: 40px 24px; margin: 40px 0 64px; }
 }
+
+.cases-subhead {
+  padding: 24px 48px 24px;
+  border-top: 1px solid var(--line);
+}
+.cases-subhead h2 { font-size: 28px; line-height: 1.2; }
+@media (max-width: 900px) {
+  .cases-subhead { padding-left: 24px; padding-right: 24px; }
+}

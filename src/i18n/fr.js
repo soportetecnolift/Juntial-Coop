@@ -89,9 +89,9 @@ export const fr = {
     casesLead: 'Des exemples d\u2019automatisations qui combinent plusieurs de nos services pour résoudre un problème précis, de bout en bout.',
     casesCta: 'Voir tous les cas d\u2019usage',
 
-    mediaEyebrow: 'Comment nous le concrétisons',
-    mediaTitle: 'Chaque projet, documenté du début à la fin',
-    mediaLead: 'Vidéos du processus réel, captures des systèmes construits et déroulé pas à pas de chaque automatisation — prêts pour le moment où nous mettrons en ligne le contenu de chaque cas.',
+    mediaEyebrow: 'Preuves',
+    mediaTitle: 'Ce que nous construisons, à la vue de tous',
+    mediaLead: 'Architectures, code et démos de chaque compétence : des Blueprints Zoho CRM aux agents IA dotés de leurs propres outils.',
 
     finalCtaEyebrow: 'Commençons',
     finalCtaTitle: 'Dites-nous quel processus vous freine et nous vous expliquons comment l\u2019automatiser',

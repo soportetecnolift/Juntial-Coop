@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../../context/LanguageContext'
-import Placeholder from '../../components/Placeholder/Placeholder'
+import EvidenceShowcase from '../../components/EvidenceShowcase/EvidenceShowcase'
 import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
 import '../../components/TypewriterHeading/TypewriterHeading.css'
 import './CasosReales.css'
@@ -36,9 +36,11 @@ export default function CasosReales() {
         <p>{hero.lead}</p>
       </section>
 
-      <section className="cases-media container">
-        <Placeholder type="video" ratio="21/9" />
-      </section>
+      <EvidenceShowcase />
+
+      <div className="cases-subhead container">
+        <h2>{t('showcase.casesTitle')}</h2>
+      </div>
 
       <section className="cases-filters container">
         {filters.map((f) => (
