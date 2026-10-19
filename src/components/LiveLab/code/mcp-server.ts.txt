@@ -1,0 +1,57 @@
+import { randomUUID, timingSafeEqual } from 'node:crypto'
+import * as z from 'zod/v4'
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
+import { createMcpExpressApp } from '@modelcontextprotocol/sdk/server/express.js'
+import { isInitializeRequest, type CallToolResult } from '@modelcontextprotocol/sdk/types.js'
+
+function buildServer() {
+  const server = new McpServer({ name: 'crm-tools', version: '1.0.0' })
+
+  server.registerTool(
+    'search_deals',
+    {
+      title: 'Search deals',
+      description: 'Find open deals by customer name or deal id.',
+      inputSchema: { search: z.string(), limit: z.number().default(20) },
+      annotations: { readOnlyHint: true, openWorldHint: false },
+    },
+    async ({ search, limit }): Promise<CallToolResult> => {
+      const url = `${process.env.CRM_API_URL}/deals?search=${encodeURIComponent(search)}&limit=${limit}`
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${process.env.CRM_API_TOKEN}` } })
+      if (!res.ok) return { isError: true, content: [{ type: 'text', text: `CRM error ${res.status}` }] }
+      return { content: [{ type: 'text', text: JSON.stringify(await res.json()) }] }
+    }
+  )
+  return server
+}
+
+const app = createMcpExpressApp({ host: '0.0.0.0' })
+const transports: Record<string, StreamableHTTPServerTransport> = {}
+
+app.use('/mcp', (req, res, next) => {
+  const received = Buffer.from(String(req.headers.authorization ?? '').replace('Bearer ', ''))
+  const expected = Buffer.from(process.env.MCP_API_KEY ?? '')
+  const ok = expected.length > 0 && received.length === expected.length && timingSafeEqual(received, expected)
+  return ok ? next() : res.status(401).json({ error: 'unauthorized' })
+})
+
+app.post('/mcp', async (req, res) => {
+  const sessionId = req.headers['mcp-session-id'] as string | undefined
+  let transport = sessionId ? transports[sessionId] : undefined
+
+  if (!transport && isInitializeRequest(req.body)) {
+    transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: () => randomUUID(),
+      onsessioninitialized: (id) => {
+        transports[id] = transport!
+      },
+    })
+    await buildServer().connect(transport)
+  }
+
+  if (!transport) return res.status(400).json({ error: 'No valid session' })
+  await transport.handleRequest(req, res, req.body)
+})
+
+app.listen(Number(process.env.PORT ?? 3000), () => console.log('MCP server on :3000/mcp · tools: search_deals'))

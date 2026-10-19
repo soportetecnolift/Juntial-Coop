@@ -1,0 +1,31 @@
+import { useEffect, useState } from 'react'
+import { getLeads, createLead } from './api'
+
+export default function App() {
+  const token = localStorage.getItem('token')
+  const [leads, setLeads] = useState([])
+  const [form, setForm] = useState({ name: '', email: '' })
+
+  useEffect(() => {
+    getLeads(token).then(setLeads).catch(console.error)
+  }, [token])
+
+  async function submit(e) {
+    e.preventDefault()
+    const lead = await createLead(token, form)
+    setLeads((prev) => [lead, ...prev])
+    setForm({ name: '', email: '' })
+  }
+
+  return (
+    <main>
+      <h1>Leads</h1>
+      <form onSubmit={submit}>
+        <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Name" />
+        <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="Email" />
+        <button>Add</button>
+      </form>
+      <ul>{leads.map((l) => <li key={l._id}>{l.name} · {l.status}</li>)}</ul>
+    </main>
+  )
+}

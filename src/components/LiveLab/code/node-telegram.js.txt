@@ -1,0 +1,24 @@
+const { TelegramClient, Api } = require('telegram')
+const { StringSession } = require('telegram/sessions')
+
+let client
+
+async function getClient() {
+  if (client) return client
+  const session = new StringSession(process.env.TG_SESSION ?? '')
+  client = new TelegramClient(session, Number(process.env.TG_API_ID), process.env.TG_API_HASH, {
+    connectionRetries: 5,
+  })
+  await client.connect()
+  return client
+}
+
+async function createDealGroup(title, about = '') {
+  const tg = await getClient()
+  const result = await tg.invoke(new Api.channels.CreateChannel({ title, about, megagroup: true }))
+  const chat = result.chats[0]
+  const invite = await tg.invoke(new Api.messages.ExportChatInvite({ peer: chat }))
+  return invite.link
+}
+
+module.exports = { createDealGroup }

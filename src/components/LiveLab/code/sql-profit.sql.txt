@@ -1,0 +1,45 @@
+SELECT
+  p."Nombre de Proyecto" AS "PROYECTO",
+  v."Nombre de visualización" AS "PROVEEDOR",
+  b."Fecha de la factura de proveedor" AS "FECHA FRA",
+  b."Fecha de vencimiento" AS "FECHA DE VENCIMIENTO FRA",
+  pf."Ultima Fecha Pago" AS "FECHA DE PAGO",
+  b."Número de factura de proveedor" AS "N° FRA",
+  li."Subtotal (BCY)" AS "IMPORTE B. I.",
+  ROUND((li."Importe del impuesto FCY") / NULLIF(li."Subtotal (BCY)", 0) * 100, 2) AS "IVA%",
+  ROUND(li."Importe del impuesto FCY", 2) AS "TOTAL IVA",
+  ROUND((li."Total (BCY)" + li."Importe del impuesto FCY"), 2) AS "IMPORTE FRA",
+  CASE
+    WHEN b."Saldo (BCY)" < 1 THEN ROUND((li."Total (BCY)" + li."Importe del impuesto FCY"), 2)
+    ELSE 0
+  END AS "PAGADO",
+  CASE
+    WHEN b."Saldo (BCY)" < 1 THEN 0
+    ELSE ROUND((li."Total (BCY)" + li."Importe del impuesto FCY"), 2)
+  END AS "PENDIENTE DE PAGO",
+  b."Saldo (BCY)" AS "SALDO  DE FACTURA GENERAL"
+FROM "Facturas de proveedor" b
+INNER JOIN "Artículo de factura de proveedor" li ON b."Factura de proveedor ID" = li."Factura de proveedor ID"
+LEFT JOIN "Proyectos" p ON li."ID de Proyecto" = p."ID de Proyecto"
+LEFT JOIN "Proveedores" v ON b."ID de proveedor" = v."ID de proveedor"
+LEFT JOIN (
+  SELECT
+    s."Factura de proveedor ID" AS "Factura de proveedor ID",
+    MAX(f."Fecha de pago") AS "Ultima Fecha Pago"
+  FROM "Pagos realizados" s
+  LEFT JOIN "Pagos de proveedores" f ON s."ID de pago del proveedor" = f."ID de pago del proveedor"
+  GROUP BY s."Factura de proveedor ID"
+) pf ON b."Factura de proveedor ID" = pf."Factura de proveedor ID"
+GROUP BY p."Nombre de Proyecto",
+  p."Coste de Proyecto",
+  v."Nombre de visualización",
+  b."Fecha de la factura de proveedor",
+  b."Fecha de vencimiento",
+  b."Número de factura de proveedor",
+  li."Subtotal (BCY)",
+  b."Total (BCY)",
+  li."Total (BCY)",
+  b."Saldo (BCY)",
+  pf."Ultima Fecha Pago",
+  li."Importe del impuesto FCY",
+  li."Importe de impuesto"

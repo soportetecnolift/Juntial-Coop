@@ -1,0 +1,8 @@
+const crypto = require('node:crypto')
+
+module.exports = function apiKey(req, res, next) {
+  const received = Buffer.from(String(req.headers['x-api-key'] ?? ''))
+  const expected = Buffer.from(process.env.API_KEY ?? '')
+  const valid = expected.length > 0 && received.length === expected.length && crypto.timingSafeEqual(received, expected)
+  return valid ? next() : res.status(401).json({ ok: false, error: 'unauthorized' })
+}

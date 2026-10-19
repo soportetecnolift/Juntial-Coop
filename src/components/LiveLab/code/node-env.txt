@@ -1,0 +1,7 @@
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/bridge
+API_KEY=change-me
+CORS_ORIGIN=https://make.example.com
+TG_API_ID=
+TG_API_HASH=
+TG_SESSION=

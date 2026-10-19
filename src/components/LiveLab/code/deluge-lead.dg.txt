@@ -1,0 +1,35 @@
+// Sync a messaging contact into its matching CRM lead
+void automation.syncContactToLead(String contactId, Map contactData)
+{
+  fieldsToCompare = {"First_Name","Last_Name","Email","Phone"};
+  matches = zoho.crm.searchRecords("Leads","(Messaging_Contact_ID:equals:" + contactId + ")");
+  if(matches.size() > 0)
+  {
+    for each  lead in matches
+    {
+      changed = List();
+      for each  field in fieldsToCompare
+      {
+        crmValue = ifnull(lead.get(field),"").toString();
+        newValue = ifnull(contactData.get(field),"").toString();
+        if(crmValue != newValue)
+        {
+          changed.add(field);
+        }
+      }
+      info "Changed fields: " + changed;
+      if(changed.size() > 0)
+      {
+        status = ifnull(lead.get("Lead_Status"),"");
+        if(status == "New" || status == "Assign Owner")
+        {
+          zoho.crm.updateRecord("Leads",lead.get("id"),contactData,{"trigger":{"workflow"}});
+        }
+        else
+        {
+          zoho.crm.updateRecord("Leads",lead.get("id"),contactData);
+        }
+      }
+    }
+  }
+}

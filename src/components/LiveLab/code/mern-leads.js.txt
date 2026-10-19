@@ -1,0 +1,27 @@
+import { Router } from 'express'
+import jwt from 'jsonwebtoken'
+import Lead from '../models/Lead.js'
+
+const router = Router()
+
+const requireAuth = (req, res, next) => {
+  try {
+    const token = (req.headers.authorization ?? '').replace('Bearer ', '')
+    req.user = jwt.verify(token, process.env.JWT_SECRET)
+    next()
+  } catch {
+    res.status(401).json({ error: 'unauthorized' })
+  }
+}
+
+router.get('/', requireAuth, async (_req, res) => {
+  res.json(await Lead.find().sort({ createdAt: -1 }).limit(50))
+})
+
+router.post('/', requireAuth, async (req, res) => {
+  const { name, email } = req.body
+  if (!name || !email) return res.status(400).json({ error: 'name and email required' })
+  res.status(201).json(await Lead.create({ name, email }))
+})
+
+export default router

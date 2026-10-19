@@ -1,0 +1,4 @@
+PORT=3000
+MCP_API_KEY=change-me
+CRM_API_URL=https://crm.example.com/api
+CRM_API_TOKEN=

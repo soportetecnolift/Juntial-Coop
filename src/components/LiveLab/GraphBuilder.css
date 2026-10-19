@@ -1,0 +1,32 @@
+.gb { width: 100%; }
+.gb__scroll {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #f4f5f7;
+  box-shadow: 0 24px 60px -30px rgba(46, 92, 255, 0.45);
+}
+.gb--flow .gb__scroll { background: #f8f9fc; }
+.gb__svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.gb__svg text { font-family: var(--sans); user-select: none; }
+
+.gb__label { font-size: 12px; font-weight: 700; fill: #2b2f3a; }
+.gb__sub { font-size: 9.5px; fill: #7b8190; }
+.gb__label, .gb__sub { paint-order: stroke; stroke: #f4f5f7; stroke-width: 4px; stroke-linejoin: round; }
+.gb__num { font-size: 8.5px; fill: #6b7280; font-weight: 600; }
+.gb__chip { font-size: 9.5px; fill: #586070; font-weight: 600; }
+.gb__btn { font-size: 13px; font-weight: 700; fill: #fff; }
+.gb__status { font-size: 12px; font-weight: 600; fill: #3b4252; }
+.gb__ftitle { font-size: 12.5px; font-weight: 600; fill: #1f2937; }
+.gb__fcond { font-size: 11.5px; fill: #374151; }
+.gb__fdef { font-size: 10px; fill: #8a93a6; }
+.gb__ftag { font-size: 8.5px; font-weight: 700; fill: #4b5563; letter-spacing: 0.04em; }
+.gb__ferr { font-size: 10px; fill: #E5484D; }
+
+.gb__dots { animation: gb-flow 1.1s linear infinite; }
+.gb__dots.is-paused { animation-play-state: paused; }
+@keyframes gb-flow { to { stroke-dashoffset: -18.2; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .gb__dots { animation: none; }
+}

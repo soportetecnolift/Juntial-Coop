@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../../context/LanguageContext'
+import LiveLab from '../../components/LiveLab/LiveLab'
 import EvidenceShowcase from '../../components/EvidenceShowcase/EvidenceShowcase'
 import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
 import '../../components/TypewriterHeading/TypewriterHeading.css'
@@ -35,6 +36,8 @@ export default function CasosReales() {
         <TypewriterHeading text={hero.title} key={hero.title} />
         <p>{hero.lead}</p>
       </section>
+
+      <LiveLab />
 
       <EvidenceShowcase />
 

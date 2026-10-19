@@ -3,12 +3,15 @@ import { useRef } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer'
 import { SHOWCASE } from '../../data/showcase'
+import LiveLab from '../../components/LiveLab/LiveLab'
 import TypewriterHeading from '../../components/TypewriterHeading/TypewriterHeading'
 import '../../components/TypewriterHeading/TypewriterHeading.css'
 import Reveal from '../../components/Reveal/Reveal'
 import '../../components/Reveal/Reveal.css'
 import HexSystem from '../../components/HexSystem/HexSystem'
 import './Home.css'
+
+const LAB_IDS = ['make-agent', 'deluge-lead', 'mern']
 
 export default function Home() {
   const { t } = useLanguage()
@@ -66,6 +69,9 @@ export default function Home() {
           <HexSystem />
         </div>
       </section>
+
+      {/* ---------- LABORATORIO EN VIVO (carrusel) ---------- */}
+      <LiveLab ids={LAB_IDS} variant="home" />
 
       {/* ---------- QUÉ ES JUNTIAL ---------- */}
       <Reveal as="section" className="home-what container">

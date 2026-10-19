@@ -1,0 +1,13 @@
+// After the signature is completed: attach the signed PDF to the CRM deal
+void automation.attachSignedDocument(String requestId, String dealId)
+{
+  signedDoc = invokeurl
+  [
+    url :"https://sign.zoho.com/api/v1/requests/" + requestId + "/pdf"
+    type :GET
+    connection:"zohosign_connection"
+  ];
+  attached = zoho.crm.attachFile("Deals",dealId.toLong(),signedDoc);
+  info attached;
+  zoho.crm.updateRecord("Deals",dealId.toLong(),{"Stage":"Closed Won"});
+}

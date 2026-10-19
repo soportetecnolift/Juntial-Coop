@@ -1,0 +1,8 @@
+{
+  "name": "crm-api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/index.js"
+  }
+}

@@ -1,0 +1,27 @@
+const { Router } = require('express')
+const apiKey = require('../middleware/apiKey')
+const Chat = require('../models/Chat')
+const { createDealGroup } = require('../services/telegram')
+
+const router = Router()
+
+router.post('/', apiKey, async (req, res) => {
+  const { dealId, title } = req.body ?? {}
+  if (!dealId || !title) {
+    return res.status(400).json({ ok: false, error: 'dealId and title are required' })
+  }
+
+  try {
+    const existing = await Chat.findOne({ dealId })
+    if (existing) return res.json({ ok: true, inviteLink: existing.inviteLink })
+
+    const inviteLink = await createDealGroup(title, `Deal ${dealId}`)
+    await Chat.create({ dealId, title, inviteLink })
+    res.status(201).json({ ok: true, inviteLink })
+  } catch (err) {
+    console.error(err)
+    res.status(502).json({ ok: false, error: 'telegram_unavailable' })
+  }
+})
+
+module.exports = router
